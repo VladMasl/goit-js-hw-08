@@ -14,11 +14,9 @@ const currentVideoTime = e => {
 
 const savedVideoTime = () => {
   const savedTime = localStorage.getItem(VIDEO_TIME_PROGRES_KEY);
-  const parsedTime = JSON.parse(savedTime);
+  const parsedTime = JSON.parse(savedTime) ?? {};
 
-  if (!parsedTime) {
-    return {};
-  }
+  
 
   if (savedTime) {
     player.setCurrentTime(parsedTime.seconds);
