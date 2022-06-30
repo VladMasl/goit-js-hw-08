@@ -6,7 +6,7 @@ const FEEDBACK_FORM_STATE_KEY = 'feedback-form-state';
 
 const dataForm = {};
 
-const serializedState = localStorage.getItem(FEEDBACK_FORM_STATE_KEY);
+const serializedState = localStorage.getItem(FEEDBACK_FORM_STATE_KEY) ?? {};
 
 console.log(serializedState);
 const handleFormInput = e => {

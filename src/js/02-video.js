@@ -5,15 +5,15 @@ const iframeEl = document.querySelector('iframe');
 
 const player = new Player(iframeEl);
 
-VIDEO_TIME_PROGRES_KEY = 'videoplayer-current-time';
+const VIDEO_TIME_KEY = 'videoplayer-current-time';
 
 const currentVideoTime = e => {
   const elSrtingifi = JSON.stringify(e);
-  localStorage.setItem(VIDEO_TIME_PROGRES_KEY, elSrtingifi);
+  localStorage.setItem(VIDEO_TIME_KEY, elSrtingifi);
 };
 
 const savedVideoTime = () => {
-  const savedTime = localStorage.getItem(VIDEO_TIME_PROGRES_KEY);
+  const savedTime = localStorage.getItem(VIDEO_TIME_KEY);
   const parsedTime = JSON.parse(savedTime) ?? {};
 
   
