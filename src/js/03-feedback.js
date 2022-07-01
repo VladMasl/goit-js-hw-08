@@ -4,32 +4,25 @@ const form = document.querySelector('.feedback-form');
 
 const FEEDBACK_FORM_STATE_KEY = 'feedback-form-state';
 
-const dataForm = {};
-
-const serializedState = localStorage.getItem(FEEDBACK_FORM_STATE_KEY) ?? {};
-
-console.log(serializedState);
-const handleFormInput = e => {
-  const { target } = e;
-
-  const elementTargetName = target.name;
-  const elementTargetValue = target.value;
-
-  dataForm[elementTargetName] = elementTargetValue;
-
-  localStorage.setItem(FEEDBACK_FORM_STATE_KEY, JSON.stringify(dataForm));
-};
+let dataForm = {};
 
 const fillContactForm = () => {
-  const formData = JSON.parse(localStorage.getItem(FEEDBACK_FORM_STATE_KEY));
+  const serializedState = localStorage.getItem(FEEDBACK_FORM_STATE_KEY);
 
-  console.dir(form.elements);
+  dataForm = JSON.parse(serializedState) ?? {};
 
-  for (const key in formData) {
-    const inputEl = form.elements[key];
-    const inputValue = formData[key];
-    inputEl.value = inputValue;
+  const dataFormKeys = Object.keys(dataForm);
+
+  if (serializedState) {
+    dataFormKeys.map(key => {
+      form.elements[key].value = dataForm[key];
+    });
   }
+};
+
+const handleFormInput = e => {
+  dataForm[e.target.name] = e.target.value;
+  localStorage.setItem(FEEDBACK_FORM_STATE_KEY, JSON.stringify(dataForm));
 };
 
 const handleContactFormSybmit = e => {
@@ -37,12 +30,8 @@ const handleContactFormSybmit = e => {
 
   localStorage.removeItem(FEEDBACK_FORM_STATE_KEY);
 
-  e.currentTarget.reset();
-  for (const key in dataForm) {
-    delete dataForm[key];
-  }
-
   console.log(dataForm);
+  e.currentTarget.reset();
 };
 
 fillContactForm();
